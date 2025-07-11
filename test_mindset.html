@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mindset Quiz</title>
+  <style>
+    body {
+      font-family: "JetBrains Mono", monospace; 
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 22px;
+    font-weight: 100;
+    }
+    h2 {
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+    .bold {
+    font-weight: bold;
+  }
+  </style>
+</head>
+<body>
+
+<h2 class="bold">Fixed vs Growth Mindset Quiz</h2>
+
+<form id="quizForm">
+  <!-- Questions are the same as before -->
+  <!-- Omitted for brevity — include all 10 questions from previous code -->
+
+  <!-- Question 1 -->
+  <div class="question">
+    <p class="bold">1. When faced with a difficult task, I usually...</p>
+    <label><input type="radio" name="q1" value="A"> Avoid it — it's probably too hard for me.</label>
+    <label><input type="radio" name="q1" value="B"> Try harder, even if it takes time to figure it out.</label>
+  </div>
+
+  <!-- Question 2 -->
+  <div class="question">
+    <p class="bold">2. How do you react to criticism?</p>
+    <label><input type="radio" name="q2" value="A"> Take it personally or ignore it.</label>
+    <label><input type="radio" name="q2" value="B"> Consider it as a chance to improve.</label>
+  </div>
+
+  <!-- Question 3 -->
+  <div class="question">
+    <p class="bold">3. What do you think about talent?</p>
+    <label><input type="radio" name="q3" value="A"> You either have it or you don't.</label>
+    <label><input type="radio" name="q3" value="B"> Talent can be developed with practice.</label>
+  </div>
+
+  <!-- Question 4 -->
+  <div class="question">
+    <p class="bold">4. Do you enjoy challenging tasks?</p>
+    <label><input type="radio" name="q4" value="A"> Not really — I prefer things I know I can do.</label>
+    <label><input type="radio" name="q4" value="B"> Yes — they help me grow.</label>
+  </div>
+
+  <!-- Question 5 -->
+  <div class="question">
+    <p class="bold">5. How do you react when you fail?</p>
+    <label><input type="radio" name="q5" value="A"> Feel like giving up.</label>
+    <label><input type="radio" name="q5" value="B"> Think about what went wrong and try again.</label>
+  </div>
+
+  <!-- Question 6 -->
+  <div class="question">
+    <p class="bold">6. When learning something new, I believe...</p>
+    <label><input type="radio" name="q6" value="A"> It’s not worth the effort if I’m not naturally good at it.</label>
+    <label><input type="radio" name="q6" value="B"> Effort leads to improvement over time.</label>
+  </div>
+
+  <!-- Question 7 -->
+  <div class="question">
+    <p class="bold">7. Success is mostly about:</p>
+    <label><input type="radio" name="q7" value="A"> Being born talented.</label>
+    <label><input type="radio" name="q7" value="B"> Working hard and staying persistent.</label>
+  </div>
+
+  <!-- Question 8 -->
+  <div class="question">
+    <p class="bold">8. I avoid trying things that might show my weaknesses.</p>
+    <label><input type="radio" name="q8" value="A"> True</label>
+    <label><input type="radio" name="q8" value="B"> False</label>
+  </div>
+
+  <!-- Question 9 -->
+  <div class="question">
+    <p class="bold">9. The idea of “natural-born geniuses” makes sense to me.</p>
+    <label><input type="radio" name="q9" value="A"> Agree</label>
+    <label><input type="radio" name="q9" value="B"> Disagree</label>
+  </div>
+
+  <!-- Question 10 -->
+  <div class="question">
+    <p class="bold">10. My skills and abilities can change a lot with effort.</p>
+    <label><input type="radio" name="q10" value="A"> Disagree</label>
+    <label><input type="radio" name="q10" value="B"> Agree</label>
+  </div>
+
+  <button type="button" onclick="calculateResult()">Get Result</button>
+</form>
+
+<div id="result"></div>
+
+<script>
+  function calculateResult() {
+    const form = document.getElementById('quizForm');
+    let fixed = 0;
+    let growth = 0;
+
+    for (let i = 1; i <= 10; i++) {
+      const q = form['q' + i];
+      if (!q[0].checked && !q[1].checked) {
+        alert("Please answer all questions.");
+        return;
+      }
+      const selected = form['q' + i].value;
+      if (selected === 'A') fixed++;
+      if (selected === 'B') growth++;
+    }
+
+    let resultText = '';
+    let links = '';
+
+    if (fixed > growth + 2) {
+      resultText = `<strong>You tend to have a Fixed Mindset.</strong><br>
+      This means you may believe that abilities are static and avoid challenges to protect your self-image. The good news is — mindset can change with awareness and effort! 💡`;
+      links = `
+        <ul>
+          <li><a href="https://en.wikipedia.org/wiki/Mindset " target="_blank">Read more on Wikipedia</a></li>
+          <li><a href="https://web.stanford.edu/dept/CTL/cgi-bin/dl/article.php?article_id=121" target="_blank">Scientific article by Carol Dweck</a></li>
+        </ul>`;
+    } else if (growth > fixed + 2) {
+      resultText = `<strong>You have a Growth Mindset.</strong><br>
+      You see challenges as opportunities to grow, value effort, and believe in your ability to develop skills over time. Keep nurturing this powerful mindset! 💪`;
+      links = `
+        <ul>
+          <li><a href=" https://en.wikipedia.org/wiki/Mindset " target="_blank">Learn more on Wikipedia</a></li>
+          <li><a href="https://www.apa.org/pubs/journals/releases/dev-dev0000351.pdf " target="_blank">Growth mindset & education (APA study)</a></li>
+        </ul>`;
+    } else {
+      resultText = `<strong>You have a Balanced (Mixed) Mindset.</strong><br>
+      Everyone has moments of fixed thinking. The key is to recognize when and why it happens — and gently shift toward growth-oriented habits. 🌱`;
+      links = `
+        <ul>
+          <li><a href="https://en.wikipedia.org/wiki/Mindset " target="_blank">Wikipedia: Growth and Fixed Mindset</a></li>
+          <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6035429/ " target="_blank">Mindset interventions in education</a></li>
+        </ul>`;
+    }
+
+    document.getElementById('result').innerHTML = resultText + links;
+  }
+</script>
+
+</body>
+</html>
