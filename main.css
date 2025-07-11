@@ -1,0 +1,100 @@
+body {
+    font-family: "JetBrains Mono", monospace; 
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 22px;
+    font-weight: 100;
+}
+
+.bold {
+    font-weight: bold;
+  }
+.link{
+    text-decoration: none;
+    border-bottom: 1px solid;
+}
+.linkBlue {
+    text-decoration: none;
+    border-bottom: 1px solid;
+    color: #06c;
+}
+
+.uppercase {
+    text-transform: uppercase;
+  }
+.menu_item {
+    text-decoration: none;
+    /*color: #909090;*/
+    color: #000;
+    font-weight: bold;
+    font-size: 32px;
+    position: relative;
+    padding-right: 30px;
+    padding-bottom: 5px;
+}
+
+.menu_item_active {
+    text-decoration-line: line-through;
+    
+}
+a:hover {
+    color: #C00;
+}
+
+.topButton {
+    position: fixed;
+    right: 30px;
+    bottom: 20px;
+    /* visual styling */
+    text-decoration: none;
+    padding: 10px;
+    font-family: sans-serif;
+    color: #fff;
+    /*background: #000;*/
+    background: #06c;
+    border-radius: 100px;
+    white-space: nowrap;
+}
+
+.column {
+    float: left;
+    /*width: 33.33%;*/
+  }
+.left, .right {
+    width: 25%;
+  }
+  
+.middle {
+    width: 50%;
+  }
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+/* Responsive layout - when the screen is less than 600px wide, make the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column {
+      width: 100%;
+    }
+  }
+
+figure {
+    margin: 0;
+  }
+.center {
+    display: flex;
+    justify-content: center;
+}
+img {
+    max-width: 100%;
+    height: auto;
+  }
+
+.linkBlue {
+    text-decoration: none;
+    border-bottom: 1px solid;
+    color: #06c;
+}
