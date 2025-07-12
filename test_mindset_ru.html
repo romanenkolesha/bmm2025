@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Mindset Quiz</title>
+  <style>
+    body {
+    font-family: "JetBrains Mono", monospace; 
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 22px;
+    font-weight: 100;
+    }
+  
+    .question {
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-top: 5px;
+    }
+    button {
+      padding: 10px 15px;
+      font-size: 16px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+
+    ul {
+      margin-top: 10px;
+      padding-left: 20px;
+    }
+    .bold {
+    font-weight: bold;
+  }
+  .linkBlue {
+    text-decoration: none;
+    border-bottom: 1px solid;
+    color: #06c;
+}
+  </style>
+</head>
+<body>
+
+<!-- ТЕСТ. НАЧАЛО -->
+<h2 class="bold">Тест. Определи тип мышления</h2>
+<form id="quizForm">
+  <!-- Вопрос 1 -->
+  <div class="question">
+    <p class="bold">1. Когда я сталкиваюсь со сложной задачей, я обычно...</p>
+    <label><input type="radio" name="q1" value="A"> Избегаю её — наверное, слишком сложно.</label>
+    <label><input type="radio" name="q1" value="C"> Иногда избегаю, но иногда пробую.</label>
+    <label><input type="radio" name="q1" value="B"> Пробую усердствовать, даже если нужно время.</label>
+  </div>
+
+  <!-- Вопрос 2 -->
+  <div class="question">
+    <p class="bold">2. Как вы реагируете на критику?</p>
+    <label><input type="radio" name="q2" value="A"> Принимаю близко к сердцу или игнорирую.</label>
+    <label><input type="radio" name="q2" value="C"> Иногда принимаю близко, иногда как полезную обратную связь.</label>
+    <label><input type="radio" name="q2" value="B"> Воспринимаю как возможность улучшиться.</label>
+  </div>
+
+  <!-- Вопрос 3 -->
+  <div class="question">
+    <p class="bold">3. Что вы думаете о таланте?</p>
+    <label><input type="radio" name="q3" value="A"> Либо он есть, либо его нет.</label>
+    <label><input type="radio" name="q3" value="C"> У некоторых людей больше природных способностей, но практика помогает всем.</label>
+    <label><input type="radio" name="q3" value="B"> Талант можно развить практикой.</label>
+  </div>
+
+  <!-- Вопрос 4 -->
+  <div class="question">
+    <p class="bold">4. Нравятся ли вам сложные задачи?</p>
+    <label><input type="radio" name="q4" value="A"> Нет — предпочитаю то, что умею.</label>
+    <label><input type="radio" name="q4" value="C"> Зависит от ситуации — некоторые задачи стоят усилий.</label>
+    <label><input type="radio" name="q4" value="B"> Да — они помогают расти.</label>
+  </div>
+
+  <!-- Вопрос 5 -->
+  <div class="question">
+    <p class="bold">5. Как вы реагируете на неудачу?</p>
+    <label><input type="radio" name="q5" value="A"> Хочу сдаться.</label>
+    <label><input type="radio" name="q5" value="C"> Расстраиваюсь, но могу попробовать снова.</label>
+    <label><input type="radio" name="q5" value="B"> Думаю, что пошло не так, и пробую снова.</label>
+  </div>
+
+  <!-- Вопрос 6 -->
+  <div class="question">
+    <p class="bold">6. При обучению новому я верю, что...</p>
+    <label><input type="radio" name="q6" value="A"> Не стоит тратить время, если не получается сразу.</label>
+    <label><input type="radio" name="q6" value="C"> Иногда усилия работают, иногда — нет.</label>
+    <label><input type="radio" name="q6" value="B"> Усилия ведут к улучшению со временем.</label>
+  </div>
+
+  <!-- Вопрос 7 -->
+  <div class="question">
+    <p class="bold">7. Успех зависит в первую очередь от:</p>
+    <label><input type="radio" name="q7" value="A"> От рождения данных способностей.</label>
+    <label><input type="radio" name="q7" value="C"> Частично от таланта, частично от работы.</label>
+    <label><input type="radio" name="q7" value="B"> Упорной работы и настойчивости.</label>
+  </div>
+
+  <!-- Вопрос 8 -->
+  <div class="question">
+    <p class="bold">8. Я избегаю делать то, что может показать мои слабости.</p>
+    <label><input type="radio" name="q8" value="A"> Верно</label>
+    <label><input type="radio" name="q8" value="C"> Иногда верно, иногда нет</label>
+    <label><input type="radio" name="q8" value="B"> Неверно</label>
+  </div>
+
+  <!-- Вопрос 9 -->
+  <div class="question">
+    <p class="bold">9. Идея "врождённых гениев" кажется мне правильной.</p>
+    <label><input type="radio" name="q9" value="A"> Согласен</label>
+    <label><input type="radio" name="q9" value="C"> Скорее согласен</label>
+    <label><input type="radio" name="q9" value="B"> Не согласен</label>
+  </div>
+
+  <!-- Вопрос 10 -->
+  <div class="question">
+    <p class="bold">10. Мои навыки и способности могут сильно измениться приложением усилий.</p>
+    <label><input type="radio" name="q10" value="A"> Не согласен</label>
+    <label><input type="radio" name="q10" value="C"> Иногда согласен</label>
+    <label><input type="radio" name="q10" value="B"> Согласен</label>
+  </div>
+
+  <button type="button" onclick="calculateResult()">Получить результат</button>
+</form>
+
+<br>
+<div id="result"></div>
+
+<script>
+  function calculateResult() {
+    const form = document.getElementById('quizForm');
+    let fixed = 0;
+    let growth = 0;
+
+    for (let i = 1; i <= 10; i++) {
+      const q = form['q' + i];
+      let answered = false;
+      for (let j = 0; j < q.length; j++) {
+        if (q[j].checked) {
+          answered = true;
+          break;
+        }
+      }
+      if (!answered) {
+        alert("Пожалуйста, ответьте на все вопросы.");
+        return;
+      }
+
+      const selected = form['q' + i].value;
+      if (selected === 'A') fixed++;
+      if (selected === 'B') growth++;
+    }
+
+    const total = fixed + growth;
+    const fixedPercent = Math.round((fixed / total) * 100);
+    const growthPercent = Math.round((growth / total) * 100);
+
+    let resultText = '';
+    let links = '';
+
+    if (fixed > growth + 2) {
+      resultText = `<strong>У вас, скорее всего, фиксированный тип мышления.</strong><br>
+      Примерно <strong>${fixedPercent}%</strong> ваших ответов указывают на фиксированный тип.<br>
+      Это значит, что вы можете считать свои способности неизменными и избегать сложностей. Главное — помнить, что мышление можно изменить с помощью осознанности и усилий! 💡`;
+      links = `
+        <ul>
+          <li><a class="linkBlue" href="https://www.ted.com/talks/carol_dweck_the_power_of_believing_that_you_can_improve/transcript " target="_blank">Посмотреть лекцию Кэрол Двек на TED</a></li>
+        </ul>`;
+    } else if (growth > fixed + 2) {
+      resultText = `<strong>У вас тип мышления роста.</strong><br>
+      Примерно <strong>${growthPercent}%</strong> ваших ответов указывают на тип роста.<br>
+      Вы воспринимаете трудности как возможности для роста, цените усилия и верите, что навыки можно развивать. Продолжайте развивать этот мощный тип мышления! 💪`;
+      links = `
+        <ul>
+          <li><a class="linkBlue" href="https://www.ted.com/talks/carol_dweck_the_power_of_believing_that_you_can_improve/transcript " target="_blank">Посмотреть лекцию Кэрол Двек на TED</a></li>
+        </ul>`;
+    } else {
+      resultText = `<strong>У вас смешанный тип мышления.</strong><br>
+      Ваши ответы относятся примерно на <strong>${fixedPercent}% </strong> к фиксированному типу и на <strong>${growthPercent}% </strong> к мышлению роста.<br>
+      У всех бывают моменты фиксированного мышления. Главное — замечать их и двигаться в сторону развития. 🌱`;
+      links = `
+        <ul>
+          <li><a class="linkBlue" href="https://www.ted.com/talks/carol_dweck_the_power_of_believing_that_you_can_improve/transcript " target="_blank">Посмотреть лекцию Кэрол Двек на TED</a></li>
+        </ul>`;
+    }
+
+    document.getElementById('result').innerHTML = resultText + links;
+  }
+</script>
+<!-- ТЕСТ. КОНЕЦ -->
+<p>Профессор Стэнфорда Кэрол Дуэк выделяет два типа мышления: «фиксированное» (fixed) и «роста» (growth).<br>
+При фиксированном мышлении человек — осознанно или нет — убеждён, что его качества неизменны: способности и возможности даны от природы раз и навсегда.<br>
+А вот мышление роста предполагает, что врождённые данные — лишь стартовая точка. <br>
+Такой человек уверен: благодаря усилиям и работе над собой способности можно развивать и улучшать.</p>
+	<p><a class="linkBlue" href="index.html" >назад</a></p>
+
+</body>
+</html>
