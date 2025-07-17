@@ -30,7 +30,7 @@
 
     .blank {
       display: inline-block;
-      width: 150px;
+      width: 170px;
       min-height: 24px;
       border-bottom: 2px dashed #999;
       text-align: center;
@@ -84,7 +84,7 @@
   <div class="task">
     <p class="sentence">
       Параллелограмм – четырехугольник, у которого <span class="blank" id="blank1"></span>
-      попарно <span class="blank" id="blank2"></span>.
+      стороны попарно <span class="blank" id="blank2"></span>.
     </p>
 
     <div class="options" id="options"></div>
@@ -95,7 +95,7 @@
   <script>
     // Список слов
     const words = [
-      { word: "стороны", correct: "blank1" },
+      { word: "противолежащие", correct: "blank1" },
       { word: "параллельны", correct: "blank2" },
       { word: "правильный", correct: null },
       { word: "углы", correct: null },
@@ -168,7 +168,7 @@
     // Проверка ответов
     function checkAnswers() {
       const correct = {
-        blank1: 'стороны',
+        blank1: 'противолежащие',
         blank2: 'параллельны'
       };
 
