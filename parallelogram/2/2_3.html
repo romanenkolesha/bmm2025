@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Интерактивный тест: исправьте ошибки</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 40px;
+    }
+    h2 {
+      color: #0056b3;
+      text-align: left;
+    }
+    .task {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: auto;
+    }
+    .statement {
+      margin-bottom: 20px;
+    }
+    .word {
+      display: inline-block;
+      margin-right: 5px;
+      cursor: pointer;
+      padding: 2px 4px;
+      border-radius: 4px;
+      transition: background-color 0.2s, transform 0.1s;
+    }
+    .word.selected {
+      background-color: #f9d342;
+      transform: scale(1.05);
+    }
+    input[type="text"] {
+      margin-left: 10px;
+      width: 200px;
+      padding: 5px 8px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+    .correct-answer {
+      font-style: italic;
+      color: #666;
+      margin-top: 5px;
+      display: none;
+    }
+    .btn-check {
+      display: block;
+      margin: 30px auto 10px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .btn-check:hover {
+      background-color: #0056b3;
+    }
+    #result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: #f9f9f9;
+      border-radius: 8px;
+      border: 1px solid #ddd;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+
+<h2>2.3. (В) Прочитайте утверждения, если есть ошибка, нажмите на слово и исправьте:</h2>
+
+<div class="task">
+
+  <!-- Утверждение а) -->
+  <div class="statement" data-error-word="все" data-correct-fix="противолежащие">
+    <strong>а)</strong>
+    <span class="word">все</span>
+    <span class="word">стороны</span>
+    <span class="word">параллелограмма</span>
+    <span class="word">равны</span>
+    <input type="text" class="correction" placeholder="исправление">
+    <div class="correct-answer">Правильный ответ: противолежащие</div>
+  </div>
+
+  <!-- Утверждение б) -->
+  <div class="statement" data-error-word="соседние" data-correct-fix="противолежащие">
+    <strong>б)</strong>
+    <span class="word">соседние</span>
+    <span class="word">стороны</span>
+    <span class="word">параллелограмма</span>
+    <span class="word">равны</span>
+    <input type="text" class="correction" placeholder="исправление">
+    <div class="correct-answer">Правильный ответ: противолежащие</div>
+  </div>
+
+  <!-- Утверждение в) -->
+  <div class="statement" data-error-word="диагональные" data-correct-fix="противолежащие">
+    <strong>в)</strong>
+    <span class="word">диагональные</span>
+    <span class="word">углы</span>
+    <span class="word">параллелограмма</span>
+    <span class="word">равны</span>
+    <input type="text" class="correction" placeholder="исправление">
+    <div class="correct-answer">Правильный ответ: противолежащие</div>
+  </div>
+
+  <!-- Утверждение г) -->
+  <div class="statement" data-error-word="равны" data-correct-fix="пересекаются и точкой пересечения делятся пополам">
+    <strong>г)</strong>
+    <span class="word">диагонали</span>
+    <span class="word">параллелограмма</span>
+    <span class="word">равны</span>
+    <input type="text" class="correction" placeholder="исправление">
+    <div class="correct-answer">Правильный ответ: пересекаются и точкой пересечения делятся пополам</div>
+  </div>
+
+  <!-- Утверждение д) -->
+  <div class="statement" data-error-word="параллельны" data-correct-fix="пересекаются и точкой пересечения делятся пополам">
+    <strong>д)</strong>
+    <span class="word">диагонали</span>
+    <span class="word">параллелограмма</span>
+    <span class="word">параллельны</span>
+    <input type="text" class="correction" placeholder="исправление">
+    <div class="correct-answer">Правильный ответ: пересекаются и точкой пересечения делятся пополам</div>
+  </div>
+
+  <button class="btn-check" id="checkAnswers">Проверить всё</button>
+  <div id="result"></div>
+
+</div>
+
+<script>
+  document.querySelectorAll('.statement').forEach(statement => {
+    const words = statement.querySelectorAll('.word');
+    let selectedWord = null;
+
+    words.forEach(word => {
+      word.addEventListener('click', () => {
+        words.forEach(w => w.classList.remove('selected'));
+        word.classList.add('selected');
+        selectedWord = word.textContent.trim();
+        // Сохраняем выбор пользователя в dataset
+        statement.dataset.selectedWord = selectedWord;
+      });
+    });
+
+    const input = statement.querySelector('.correction');
+    input.addEventListener('input', () => {
+      if (selectedWord) {
+        statement.dataset.userAnswer = input.value.trim();
+      }
+    });
+  });
+
+  document.getElementById('checkAnswers').addEventListener('click', () => {
+    const statements = document.querySelectorAll('.statement');
+    let correctCount = 0;
+    let resultText = '';
+
+    statements.forEach((stmt, index) => {
+      const errorWord = stmt.getAttribute('data-error-word');
+      const correctFix = stmt.getAttribute('data-correct-fix');
+      const userSelectedWord = stmt.dataset.selectedWord;
+      const userAnswer = stmt.dataset.userAnswer?.toLowerCase() || '';
+      const correctAnswerDiv = stmt.querySelector('.correct-answer');
+
+      const letter = String.fromCharCode(97 + index);
+
+      if (userSelectedWord === errorWord && userAnswer === correctFix.toLowerCase()) {
+        correctCount++;
+        resultText += `${letter}) ✅ Верно<br>`;
+      } else {
+        resultText += `${letter}) ❌ Неверно<br>`;
+        if (userSelectedWord !== errorWord) {
+          resultText += `&nbsp;&nbsp;&nbsp;&nbsp;❌ Выбрали не то слово: <strong>${userSelectedWord}</strong>, должно быть: <strong>${errorWord}</strong><br>`;
+        }
+        if (userAnswer !== correctFix.toLowerCase()) {
+          resultText += `&nbsp;&nbsp;&nbsp;&nbsp;❌ Исправили неверно: <strong>${userAnswer}</strong>, должно быть: <strong>${correctFix}</strong><br>`;
+        }
+      }
+
+      correctAnswerDiv.style.display = 'block';
+    });
+
+    document.getElementById('result').innerHTML = `<strong>Результат:</strong><br>Правильных ответов: ${correctCount} из 5<br><br>${resultText}`;
+  });
+</script>
+
+</body>
+</html>

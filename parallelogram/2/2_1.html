@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Соотнесите свойства и чертежи</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+    }
+
+    h2 {
+      color: #0056b3;
+    }
+
+    .task {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 20px;
+    }
+
+    .image-box {
+      text-align: center;
+    }
+
+    .image-box img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fff;
+    }
+
+    .property-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option {
+      padding: 10px;
+      background-color: #e0e0ff;
+      border-radius: 5px;
+      cursor: grab;
+      user-select: none;
+      text-align: center;
+    }
+
+    .option:active {
+      cursor: grabbing;
+    }
+
+    .dropzone {
+      min-height: 50px;
+      border: 2px dashed #999;
+      border-radius: 5px;
+      margin-top: 10px;
+      padding: 10px;
+      background: #fffbe6;
+      text-align: center;
+    }
+
+    .btn-check {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .correct {
+      background-color: #d4edda;
+      color: green;
+    }
+
+    .incorrect {
+      background-color: #f8d7da;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>2.1 — Соотнесите свойство и чертёж</h2>
+  <div class="task">
+    <p><strong>Задание:</strong> Перетащите свойства к соответствующим чертежам.</p>
+
+    <div class="grid">
+      <!-- Чертёж 1 -->
+      <div class="image-box">
+        <img src="2_1_1.png" alt="Чертёж 1">
+        <div class="dropzone" id="drop1"></div>
+      </div>
+      <div class="property-box">
+        <div class="option" draggable="true" data-correct="drop2">Противолежащие стороны параллелограмма равны</div>
+      </div>
+
+      <!-- Чертёж 2 -->
+      <div class="image-box">
+        <img src="2_1_2.png" alt="Чертёж 2">
+        <div class="dropzone" id="drop2"></div>
+      </div>
+      <div class="property-box">
+        <div class="option" draggable="true" data-correct="drop1">Противолежащие углы параллелограмма равны</div>
+      </div>
+
+      <!-- Чертёж 3 -->
+      <div class="image-box">
+        <img src="2_1_3.png" alt="Чертёж 3">
+        <div class="dropzone" id="drop3"></div>
+      </div>
+      <div class="property-box">
+        <div class="option" draggable="true" data-correct="drop4">Диагонали параллелограмма пересекаются и точкой пересечения делятся пополам</div>
+      </div>
+
+      <!-- Чертёж 4 -->
+      <div class="image-box">
+        <img src="2_1_4.png" alt="Чертёж 4">
+        <div class="dropzone" id="drop4"></div>
+      </div>
+      <div class="property-box">
+        <div class="option" draggable="true" data-correct="drop3">Диагональ делит параллелограмм на 2 равных треугольника</div>
+      </div>
+    </div>
+
+    <button class="btn-check" onclick="checkAnswers()">Проверить</button>
+  </div>
+
+  <script>
+    const draggables = document.querySelectorAll('.option');
+    const dropzones = document.querySelectorAll('.dropzone');
+
+    draggables.forEach(option => {
+      option.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', option.textContent);
+      });
+    });
+
+    dropzones.forEach(zone => {
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+      });
+
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const text = e.dataTransfer.getData('text/plain');
+        const dragged = [...draggables].find(el => el.textContent === text);
+
+        zone.innerHTML = '';
+        zone.appendChild(dragged.cloneNode(true));
+      });
+    });
+
+    function checkAnswers() {
+      const correct = {
+        drop1: 'Противолежащие углы параллелограмма равны',
+        drop2: 'Диагональ делит параллелограмм на 2 равных треугольника',
+        drop3: 'Противолежащие стороны параллелограмма равны',
+        drop4: 'Диагонали параллелограмма пересекаются и точкой пересечения делятся пополам'
+      };
+
+      dropzones.forEach(zone => {
+        const answer = zone.querySelector('.option');
+        if (answer && answer.textContent === correct[zone.id]) {
+          zone.classList.remove('incorrect');
+          zone.classList.add('correct');
+        } else {
+          zone.classList.remove('correct');
+          zone.classList.add('incorrect');
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>
