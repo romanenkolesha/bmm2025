@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Запись с таймером и вывод ответа</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+
+    h2 {
+      color: #0056b3;
+    }
+
+    .container {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      max-width: 600px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin: 10px 5px;
+    }
+
+    .timer {
+      font-size: 1.2em;
+      margin-top: 10px;
+      color: #d9534f;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+    }
+
+    .answer {
+      background-color: #e9f5ff;
+      color: #000;
+      font-weight: bold;
+    }
+
+    audio {
+      margin-top: 15px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>1.4 – Запишите определение параллелограмма</h2>
+  <div class="container">
+    <p>Запишите своё определение параллелограмма (до 30 секунд).</p>
+
+    <button onclick="startRecording()">Начать запись</button>
+    <button onclick="stopRecording()">Остановить запись</button>
+
+    <div class="timer" id="timer">Время: 30</div>
+
+    <div id="audioPlayback"></div>
+
+    <button onclick="showAnswer()">Показать ответ</button>
+
+    <div id="answerBox" class="result answer" style="display: none;"></div>
+  </div>
+
+  <script>
+    let mediaRecorder;
+    let audioChunks = [];
+    let timerInterval;
+    let remainingTime = 30;
+
+    function updateTimer() {
+      document.getElementById('timer').textContent = 'Время: ' + remainingTime;
+      if (remainingTime <= 0) {
+        clearInterval(timerInterval);
+        stopRecording();
+      }
+    }
+
+    async function startRecording() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        mediaRecorder = new MediaRecorder(stream);
+
+        audioChunks = [];
+        mediaRecorder.ondataavailable = event => {
+          audioChunks.push(event.data);
+        };
+
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(audioChunks, { type: 'audio/webm' });
+          const url = URL.createObjectURL(blob);
+          const audio = document.createElement('audio');
+          audio.controls = true;
+          audio.src = url;
+          const playbackDiv = document.getElementById('audioPlayback');
+          playbackDiv.innerHTML = '';
+          playbackDiv.appendChild(audio);
+        };
+
+        mediaRecorder.start();
+        remainingTime = 30;
+        updateTimer();
+        timerInterval = setInterval(() => {
+          remainingTime--;
+          updateTimer();
+        }, 1000);
+
+        // Автоматическая остановка через 30 секунд
+        setTimeout(() => {
+          if (mediaRecorder.state !== 'inactive') {
+            mediaRecorder.stop();
+          }
+        }, 30000);
+      } catch (err) {
+        alert('Ошибка доступа к микрофону: ' + err);
+      }
+    }
+
+    function stopRecording() {
+      if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+        mediaRecorder.stop();
+      }
+      if (timerInterval) {
+        clearInterval(timerInterval);
+      }
+    }
+
+    function showAnswer() {
+      const answerBox = document.getElementById('answerBox');
+      answerBox.textContent = 'Параллелограмм — четырёхугольник, у которого стороны попарно параллельны.';
+      answerBox.style.display = 'block';
+    }
+  </script>
+
+</body>
+</html>
