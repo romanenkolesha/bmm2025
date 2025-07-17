@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>сформулируйте свойства и запишите ответ</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+      color: #333;
+    }
+    h2 {
+      color: #0056b3;
+    }
+    .task {
+      background: white;
+      padding: 80px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 900px;
+      margin: auto;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .image-box {
+      text-align: center;
+    }
+    .image-box img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fff;
+    }
+    .recording-controls {
+      margin-top: 15px;
+      text-align: center;
+    }
+    .timer {
+      font-size: 1.1em;
+      color: #d9534f;
+      display: inline-block;
+      min-width: 80px;
+      text-align: center;
+    }
+    .answer-box {
+      margin-top: 10px;
+      font-style: italic;
+      color: #666;
+      display: none;
+    }
+    audio {
+      margin-top: 10px;
+      width: 100%;
+    }
+    .controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .controls-row button,
+    .show-answer-button {
+      padding: 8px 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.95em;
+      transition: background-color 0.3s;
+    }
+    .controls-row button {
+      background-color: #007BFF;
+      color: white;
+    }
+    .controls-row button:hover {
+      background-color: #0056b3;
+    }
+    .show-answer-button {
+      background-color: #28a745;
+      color: white;
+    }
+    .show-answer-button:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <h2>2.4 — сформулируйте свойства и запишите ответ</h2>
+  <div class="task">
+    <p> Ниже представлены чертежи параллелограмма. Определите свойства. Запишите объяснение и проверьте себя.</p>
+    <div class="grid">
+      <!-- Чертёж 1 -->
+      <div class="image-box">
+        <img src="2_1_1.png" alt="Чертёж 1">
+        <div class="recording-controls">
+          <div class="controls-row">
+            <button type="button" onclick="startRecording('1')">Начать запись</button>
+            <button type="button" onclick="stopRecording('1')">Остановить запись</button>
+            <div class="timer" id="timer1">Время: 30</div>
+          </div>
+          <div id="audioPlayback1"></div>
+          <p></p>
+          <button type="button" class="show-answer-button" onclick="showAnswer('1')">Показать ответ</button>
+          <div class="answer-box" id="answer1">Правильный ответ: Противолежащие углы параллелограмма равны</div>
+        </div>
+      </div>
+
+      <!-- Чертёж 2 -->
+      <div class="image-box">
+        <img src="2_1_2.png" alt="Чертёж 2">
+        <div class="recording-controls">
+          <div class="controls-row">
+            <button type="button" onclick="startRecording('2')">Начать запись</button>
+            <button type="button" onclick="stopRecording('2')">Остановить запись</button>
+            <div class="timer" id="timer2">Время: 30</div>
+          </div>
+          <div id="audioPlayback2"></div>
+                    <p></p>
+          <button type="button" class="show-answer-button" onclick="showAnswer('2')">Показать ответ</button>
+          <div class="answer-box" id="answer2">Правильный ответ: Диагональ делит параллелограмм на 2 равных треугольника</div>
+        </div>
+      </div>
+
+      <!-- Чертёж 3 -->
+      <div class="image-box">
+        <img src="2_1_3.png" alt="Чертёж 3">
+        <div class="recording-controls">
+          <div class="controls-row">
+            <button type="button" onclick="startRecording('3')">Начать запись</button>
+            <button type="button" onclick="stopRecording('3')">Остановить запись</button>
+            <div class="timer" id="timer3">Время: 30</div>
+          </div>
+          <div id="audioPlayback3"></div>
+                    <p></p>
+          <button type="button" class="show-answer-button" onclick="showAnswer('3')">Показать ответ</button>
+          <div class="answer-box" id="answer3">Правильный ответ: Противолежащие стороны параллелограмма равны</div>
+        </div>
+      </div>
+
+      <!-- Чертёж 4 -->
+      <div class="image-box">
+        <img src="2_1_4.png" alt="Чертёж 4">
+        <div class="recording-controls">
+          <div class="controls-row">
+            <button type="button" onclick="startRecording('4')">Начать запись</button>
+            <button type="button" onclick="stopRecording('4')">Остановить запись</button>
+            <div class="timer" id="timer4">Время: 30</div>
+          </div>
+          <div id="audioPlayback4"></div>
+                    <p></p>
+
+          <button type="button" class="show-answer-button" onclick="showAnswer('4')">Показать ответ</button>
+          <div class="answer-box" id="answer4">Правильный ответ: Диагонали пересекаются и делятся пополам</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Показать ответ под чертежом ---
+    function showAnswer(id) {
+      const answerBox = document.getElementById('answer' + id);
+      answerBox.style.display = 'block';
+    }
+
+    // --- Запись голоса для каждого чертежа ---
+    const recorders = {};
+    const audioChunks = {};
+    const timers = {};
+    const remainingTime = {};
+
+    function updateTimer(id) {
+      document.getElementById('timer' + id).textContent = 'Время: ' + remainingTime[id];
+      if (remainingTime[id] <= 0) {
+        clearInterval(timers[id]);
+        stopRecording(id);
+      }
+    }
+
+    async function startRecording(id) {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        recorders[id] = new MediaRecorder(stream);
+        audioChunks[id] = [];
+
+        recorders[id].ondataavailable = event => {
+          audioChunks[id].push(event.data);
+        };
+
+        recorders[id].onstop = () => {
+          const blob = new Blob(audioChunks[id], { type: 'audio/webm' });
+          const url = URL.createObjectURL(blob);
+          const audio = document.createElement('audio');
+          audio.controls = true;
+          audio.src = url;
+          const playbackDiv = document.getElementById('audioPlayback' + id);
+          playbackDiv.innerHTML = '';
+          playbackDiv.appendChild(audio);
+        };
+
+        recorders[id].start();
+        remainingTime[id] = 30;
+        updateTimer(id);
+        timers[id] = setInterval(() => {
+          remainingTime[id]--;
+          updateTimer(id);
+        }, 1000);
+
+        setTimeout(() => {
+          if (recorders[id] && recorders[id].state !== 'inactive') {
+            recorders[id].stop();
+          }
+        }, 30000);
+      } catch (err) {
+        alert('Ошибка доступа к микрофону: ' + err);
+      }
+    }
+
+    function stopRecording(id) {
+      if (recorders[id] && recorders[id].state !== 'inactive') {
+        recorders[id].stop();
+      }
+      if (timers[id]) {
+        clearInterval(timers[id]);
+      }
+    }
+  </script>
+</body>
+</html>
