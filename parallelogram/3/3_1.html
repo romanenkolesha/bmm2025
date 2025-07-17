@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Соотнесите признаки и чертежи</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      color: #0056b3;
+    }
+    .task {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 900px;
+      margin: auto;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      margin-top: 20px;
+    }
+    .image-box {
+      text-align: center;
+    }
+    .image-box img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid #ccc;
+      padding: 10px;
+      background: #fff;
+    }
+    .property-box {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .option {
+      padding: 10px;
+      background-color: #e0e0ff;
+      border-radius: 5px;
+      cursor: grab;
+      user-select: none;
+      text-align: center;
+    }
+    .option:active {
+      cursor: grabbing;
+    }
+    .dropzone {
+      min-height: 50px;
+      border: 2px dashed #999;
+      border-radius: 5px;
+      margin-top: 10px;
+      padding: 10px;
+      background: #fffbe6;
+      text-align: center;
+    }
+    .btn-check {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .correct {
+      background-color: #d4edda;
+      color: green;
+    }
+    .incorrect {
+      background-color: #f8d7da;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <h2>3.1 — Соотнесите утверждение и чертёж</h2>
+  <div class="task">
+    <div class="grid">
+      <!-- Чертёж 1 -->
+      <div class="image-box">
+        <img src="3_1_1.png" alt="Чертёж 1">
+        <div class="dropzone" id="drop1"></div>
+      </div>
+      <div class="property-box" id="prop1">
+        <div class="option" draggable="true" data-correct="drop1">Если две стороны четырехугольника равны и параллельны, то этот четырехугольник - параллелограмм</div>
+      </div>
+
+      <!-- Чертёж 2 -->
+      <div class="image-box">
+        <img src="3_1_2.png" alt="Чертёж 2">
+        <div class="dropzone" id="drop2"></div>
+      </div>
+      <div class="property-box" id="prop2">
+        <div class="option" draggable="true" data-correct="drop2">Если противоположные стороны четырехугольника попарно равны, то этот четырехугольник - параллелограмм</div>
+      </div>
+
+      <!-- Чертёж 3 -->
+      <div class="image-box">
+        <img src="3_1_3.png" alt="Чертёж 3">
+        <div class="dropzone" id="drop3"></div>
+      </div>
+      <div class="property-box" id="prop3">
+        <div class="option" draggable="true" data-correct="drop3">Если диагонали четырехугольника пересекаются и точкой пересечения делятся пополам, то этот четырехугольник - параллелограмм</div>
+      </div>
+
+      <!-- Чертёж 4 -->
+      <div class="image-box">
+        <img src="3_1_4.png" alt="Чертёж 4">
+        <div class="dropzone" id="drop4"></div>
+      </div>
+      <div class="property-box" id="prop4">
+        <div class="option" draggable="true" data-correct="drop4">Если в четырехугольнике противолежащие углы равны, то этот четырехугольник - параллелограмм</div>
+      </div>
+    </div>
+    <button class="btn-check" onclick="checkAnswers()">Проверить</button>
+  </div>
+
+  <script>
+    // Функция для перемешивания массива (алгоритм Фишера–Йетса)
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
+      return array;
+    }
+
+    // Перемешиваем свойства при загрузке
+    window.onload = () => {
+      const propertyBoxes = document.querySelectorAll('.property-box');
+      const allOptions = [];
+
+      // Собираем все опции
+      propertyBoxes.forEach(box => {
+        allOptions.push(...Array.from(box.children));
+        box.innerHTML = ''; // Очищаем старые
+      });
+
+      // Перемешиваем
+      const shuffled = shuffle(allOptions);
+
+      // Распределяем по контейнерам
+      let index = 0;
+      propertyBoxes.forEach(box => {
+        if (shuffled[index]) {
+          box.appendChild(shuffled[index]);
+          index++;
+        }
+      });
+    };
+
+    // Логика перетаскивания
+    const draggables = document.querySelectorAll('.option');
+    const dropzones = document.querySelectorAll('.dropzone');
+
+    draggables.forEach(option => {
+      option.addEventListener('dragstart', (e) => {
+        e.dataTransfer.setData('text/plain', option.textContent);
+      });
+    });
+
+    dropzones.forEach(zone => {
+      zone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+      });
+      zone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        const text = e.dataTransfer.getData('text/plain');
+        const dragged = [...document.querySelectorAll('.option')].find(el => el.textContent === text);
+        zone.innerHTML = '';
+        if (dragged) {
+          zone.appendChild(dragged.cloneNode(true));
+        }
+      });
+    });
+
+    function checkAnswers() {
+      const correct = {
+        drop1: 'Если две стороны четырехугольника равны и параллельны, то этот четырехугольник - параллелограмм',
+        drop2: 'Если противоположные стороны четырехугольника попарно равны, то этот четырехугольник - параллелограмм',
+        drop3: 'Если диагонали четырехугольника пересекаются и точкой пересечения делятся пополам, то этот четырехугольник - параллелограмм',
+        drop4: 'Если в четырехугольнике противолежащие углы равны, то этот четырехугольник - параллелограмм'
+      };
+
+      dropzones.forEach(zone => {
+        const answer = zone.querySelector('.option');
+        if (answer && answer.textContent === correct[zone.id]) {
+          zone.classList.remove('incorrect');
+          zone.classList.add('correct');
+        } else {
+          zone.classList.remove('correct');
+          zone.classList.add('incorrect');
+        }
+      });
+    }
+  </script>
+</body>
+</html>
